@@ -28,8 +28,8 @@ def video_converter(input_file, output_file, output_format, high_quality=False):
 
 
 parser = argparse.ArgumentParser(description='Convert WebM video to MP4 format')
-parser.add_argument('-i', '--input', help='Name of the input file', required=True)
-parser.add_argument('-o', '--output', help='Name of the output file', required=False)
+parser.add_argument('-i', '--input', help='Path of the input file', required=True)
+parser.add_argument('-o', '--output', help='Path of the output file', required=False)
 parser.add_argument('-f', '--format', help='Format of the output file', required=False, default='mp4')
 parser.add_argument('-hq', '--high_quality', help='Use high quality codec', required=False, default=True)
 
@@ -37,11 +37,11 @@ args = parser.parse_args()
 
 path_input_file = args.input    
 name_input_file = args.input.split(".")[0]
-name_output_file = args.output
+name_output_file = args.output.split(".")[0] if args.output else None
 output_format = args.format
 high_quality = args.high_quality
 
-if not name_output_file:
+if name_output_file == None:
     path_output_file = name_input_file + "." + output_format
 else:
     path_output_file = name_output_file + "." + output_format
@@ -52,3 +52,4 @@ print("Output format: ", output_format)
 print("High quality: ", high_quality)
     
 video_converter(path_input_file, path_output_file, output_format, high_quality)
+
